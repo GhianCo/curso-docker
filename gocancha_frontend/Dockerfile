@@ -4,8 +4,8 @@ COPY ./ /
 RUN npm install -g @angular/cli:13.2.0
 RUN npm install -g ionic
 RUN npm install
-ARG configuration=production
-RUN npm run build
+ARG npmrun=build
+RUN npm run $npmrun
 
 FROM nginx:alpine
 COPY --from=node /www /usr/share/nginx/html
