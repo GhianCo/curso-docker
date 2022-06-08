@@ -15,7 +15,8 @@ services:
             - ./conf:/etc/mysql/conf.d
             - persistent:/var/lib/mysql
         networks:
-            - default
+            - backend:
+                ipv4_address: 10.45.1.70
 
     php:
         build: .
@@ -28,7 +29,8 @@ services:
         depends_on:
             - database
         networks:
-            - default
+            - backend:
+                ipv4_address: 10.45.1.171
 
     adminer:
         image: adminer
@@ -37,3 +39,11 @@ services:
             - 8000:8080
 volumes:
     persistent:
+
+networks:
+    backend:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 10.45.1.0/16
+                  gateway: 10.45.1.1
