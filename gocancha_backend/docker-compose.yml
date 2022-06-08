@@ -15,7 +15,7 @@ services:
             - ./conf:/etc/mysql/conf.d
             - persistent:/var/lib/mysql
         networks:
-            - backend:
+            backend:
                 ipv4_address: "10.45.1.70"
 
     php:
@@ -29,7 +29,7 @@ services:
         depends_on:
             - database
         networks:
-            - backend:
+            backend:
                 ipv4_address: "10.45.1.171"
 
     adminer:
