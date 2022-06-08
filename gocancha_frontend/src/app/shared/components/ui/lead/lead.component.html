@@ -1,0 +1,9 @@
+<div class="px-10 py-6 flex flex-col justify-center text-center">
+  <app-lead-icon icon="{{icon}}" class="mx-auto"></app-lead-icon>
+
+  <div class="font-semibold text-2xl mt-10 mb-4" *ngIf="title">{{title}}</div>
+
+  <div class="text-lg">
+    <ng-content></ng-content>
+  </div>
+</div>

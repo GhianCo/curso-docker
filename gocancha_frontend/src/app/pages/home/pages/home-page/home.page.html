@@ -1,0 +1,22 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <app-main-toolbar (changeCoordsEvent)="coordsWasChanged($event)"></app-main-toolbar>
+</ion-header>
+<ion-content *ngIf="{
+    allSports: allSports$ | async,
+    sportsLoading: sportsLoading$ | async,
+    favoriteProviders: favoriteProviders$ | async,
+    favoriteProvidersLoading: favoriteProvidersLoading$ | async,
+    providersNearby: providersNearby$ | async,
+    providersNearbyLoading: providersNearbyLoading$ | async,
+    searchingCurrentPosition: searchingCurrentPosition$ | async
+  } as data">
+  <div class="flex items-center mt-3 mb-2">
+    <ion-searchbar placeholder="Busca un centro deportivo" type="text" (ionFocus)="openSearchSportCenter()"></ion-searchbar>
+  </div>
+  <h1 class="list-header m-4" [hidden]="!data.sportsLoading && data.allSports.length <= 1">Selecciona para reservar</h1>
+  <app-swipper-sports [sports]="data.allSports" [loading]="data.searchingCurrentPosition" (selectSportEvent)="selectCurrentSport($event)"></app-swipper-sports>
+  <h1 class="list-header m-4">Centros deportivos favoritos</h1>
+  <app-sport-center [providers]="data.favoriteProviders" [showDetail]="false" [isSlider]="true" [loading]="data.favoriteProvidersLoading || data.searchingCurrentPosition"></app-sport-center>
+  <h1 class="list-header m-4">Centros deportivos cercanos</h1>
+  <app-sport-center [providers]="data.providersNearby" [showDetail]="false" [isSlider]="true" [loading]="data.providersNearbyLoading || data.searchingCurrentPosition"></app-sport-center>
+</ion-content>

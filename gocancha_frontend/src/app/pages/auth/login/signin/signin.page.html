@@ -1,0 +1,32 @@
+<ion-content *ngIf="{
+  loginLoading: loginLoading$ | async
+} as data">
+  <div class="signin-content h-4/6 flex flex-col justify-center bg-black">
+    <div class="text-center z-10">
+      <img class="mb-10 ml-auto mr-auto" src="../../../assets/images/logo.png" width="220"
+           height="112" alt="GoCancha"/>
+    </div>
+    <div class="px-6 z-10">
+      <ion-button expand="block" class="mb-4 button-background-facebook" (click)="loginWithFacebook()" [hidden]="isWeb" [disabled]="data.loginLoading">
+        <ion-icon ios="logo-facebook" md="logo-facebook" class="mr-1"></ion-icon>
+        Continuar con facebook
+      </ion-button>
+      <ion-button expand="block" class="mb-4 button-background-google" (click)="loginWithGoogle()" [disabled]="data.loginLoading">
+        <ion-icon ios="logo-google" md="logo-google" class="mr-1"></ion-icon>
+        Continuar con google
+      </ion-button>
+      <ion-button expand="block" class="mb-4 button-background-apple" (click)="loginWithApple()" *ngIf="isApple" [disabled]="data.loginLoading">
+        <ion-icon ios="logo-apple" md="logo-apple" class="mr-1"></ion-icon>
+        Continuar con apple
+      </ion-button>
+      <ion-button expand="block" class="button-background-apple" (click)="loginWithoutAccount()" *ngIf="isApple" [disabled]="data.loginLoading">
+        <ion-icon ios="person-outline" md="person-outline" class="mr-1"></ion-icon>
+        Ingresar como invitado
+      </ion-button>
+      <!--<ion-button expand="block" class="button-background-account" (click)="loginWithAccount()">
+        <ion-icon ios="person" md="person" class="mr-1"></ion-icon>
+        Continuar con usuario
+      </ion-button>-->
+    </div>
+  </div>
+</ion-content>

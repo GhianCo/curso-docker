@@ -1,0 +1,17 @@
+<ion-content *ngIf="{
+    timeToReservation: timeToReservation$ | async
+  } as data">
+  <div class="p-6 pt-8">
+    <div class="font-bold text-xl mb-4">Tiempo a reservar</div>
+    <main class="grid grid-cols-4 gap-4">
+      <div class="flex relative h-10 w-fit border-2 border-gray-300 rounded-xl justify-center items-center" [ngClass]="{'bg-green-50 border-green-500': minuteReservation.id == data.timeToReservation.id}"
+        *ngFor="let minuteReservation of minutesToReservation" (click)="selectTimeToReservation(minuteReservation.id)">
+        <ion-text>{{minuteReservation.description}}</ion-text>
+        <div class="flex absolute rounded-full bg-green-500 text-white -top-2 -right-2 w-6 h-6 z-10 justify-center items-center"
+          *ngIf="minuteReservation.id == data.timeToReservation.id">
+          <fa-icon slot="start" [icon]="['far', 'check']"></fa-icon>
+        </div>
+      </div>
+    </main>
+  </div>
+</ion-content>

@@ -1,0 +1,13 @@
+.store-status {
+  white-space: normal;
+  text-align: right;
+
+  @apply mr-2;
+
+  span {
+    display: block;
+  }
+}
+ion-title {
+  font-size: 13px !important;
+}

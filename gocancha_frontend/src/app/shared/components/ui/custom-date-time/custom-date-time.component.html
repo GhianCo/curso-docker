@@ -1,0 +1,13 @@
+<ion-modal [trigger]="trigger">
+  <ng-template>
+    <ion-content>
+      <ion-datetime #datetime [max]="max" [min]="min" [value]="date" size="cover"
+        (ionChange)="dateChanged(datetime.value)" presentation="date" mode="{{isIOS ? 'ios' : 'md'}}">
+        <ion-buttons slot="buttons">
+          <ion-button (click)="closeDatetime()">Cerrar</ion-button>
+          <ion-button (click)="selectDate()" color="primary">Seleccionar</ion-button>
+        </ion-buttons>
+      </ion-datetime>
+    </ion-content>
+  </ng-template>
+</ion-modal>

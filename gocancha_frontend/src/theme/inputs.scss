@@ -1,0 +1,33 @@
+.item-label-stacked {
+  --ion-safe-area-left: 0;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+  --border-radius: 0.5rem;
+
+  ion-input.sc-ion-input-md-h,
+  ion-textarea.sc-ion-textarea-md-h {
+    --padding-start: 8px;
+    --padding-end: 8px;
+
+    @apply border border-gray-300 border-b-0 mt-2 rounded-lg;
+  }
+}
+
+ion-radio-group.grid {
+  ion-item {
+    --padding-start: 8px;
+    --inner-border-width: 0;
+  }
+
+  ion-radio {
+    margin-right: 8px;
+  }
+}
+
+.input-verifiable {
+  position: relative;
+
+  dgo-verification-badge {
+    @apply absolute bottom-2 right-2;
+  }
+}

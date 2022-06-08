@@ -1,0 +1,20 @@
+<ion-content *ngIf="{
+      hourInitialReservation: hourInitialReservation$ | async
+    } as data">
+  <div class="p-6 pt-8">
+    <div class="font-bold text-xl mb-4">Hora de inicio de la reserva</div>
+    <main class="grid grid-cols-4 gap-4">
+      <div class="flex relative h-10 w-fit border-2 border-gray-300 rounded-xl justify-center items-center" [ngClass]="{'bg-green-50 border-green-500': hour.horaEntera == data.hourInitialReservation.horaEntera}"
+        *ngFor="let hour of hours" (click)="selectHourInitial(hour.horaEntera)">
+        <ion-text>{{hour.horaEnteraAMPM}}</ion-text>
+        <div class="flex absolute rounded-full bg-green-500 text-white -top-2 -right-2 w-6 h-6 z-10 justify-center items-center"
+          *ngIf="hour.horaEntera == data.hourInitialReservation.horaEntera">
+          <fa-icon slot="start" [icon]="['far', 'check']"></fa-icon>
+        </div>
+      </div>
+    </main>
+    <app-lead class="mt-4" icon="file-search" title="Sin resultados" *ngIf="!hours.length">
+      Lo sentimos, no encontramos horarios disponibles.
+    </app-lead>
+  </div>
+</ion-content>

@@ -1,0 +1,136 @@
+<ion-row class="ml-4 mr-4" *ngIf="!isSlider && !loading">
+  <ion-col *ngFor="let provider of providers;" size="6">
+    <ion-card class="card m-0">
+      <div *ngIf="showDetail">
+        <!--<ion-badge class="badge-price" *ngIf="showDetail">S/ 80.00</ion-badge>-->
+        <ion-badge class="badge-starts" *ngIf="showDetail">
+          <ion-icon name="star-outline"></ion-icon>
+          {{provider?.provider_rating}}
+        </ion-badge>
+      </div>
+      <div *ngIf="!showDetail">
+        <!--<ion-badge class="badge-starts">S/ 80.00</ion-badge>-->
+        <ion-badge class="badge-name">
+          {{provider?.provider_name}}
+        </ion-badge>
+      </div>
+      <app-custom-cl-image [publicId]="provider?.provider_image" (action)="openDetailSportCenter(provider)"></app-custom-cl-image>
+      <ion-card-content class="p-0 ml-2 mt-2" *ngIf="showDetail">
+        <ion-card-title>
+          <ion-row>
+            <ion-col class="p-0 text-left" size="12">
+              <h6 class="subtitle text-left">
+                <ion-icon name="locate"></ion-icon>
+                Urb. Angamos centr...
+              </h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="p-0 text-left" size="12">
+              <h6 class="subtitle text-left">
+                <ion-icon name="man"></ion-icon>
+                5 vs.5
+              </h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="p-0 text-left" size="12">
+              <h6 class="subtitle text-left">
+                <ion-icon name="calendar"></ion-icon>
+                Horario: 20:30
+              </h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="p-0 text-left" size="12">
+              <h6 class="subtitle text-left">
+                <ion-icon name="alarm"></ion-icon>
+                Tiempo: 1h 30m
+              </h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="p-0 text-left" size="12">
+              <ion-button fill="outline" color="primary" expand="block" (click)="openModalReservation()">Reservar</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+</ion-row>
+<div *ngIf="isSlider && !loading">
+    <swiper [config]="configSlides">
+      <ng-template *ngFor="let provider of providers" swiperSlide>
+        <ion-card class="rounded-2xl max-h-72 h-72" [ngClass]="{'opacity-75': !provider?.provider_isActive}">
+          <div *ngIf="showDetail">
+            <!--<ion-badge class="badge-price" *ngIf="showDetail">S/ 80.00</ion-badge>-->
+            <ion-badge class="badge-starts" *ngIf="showDetail">
+              <ion-icon name="star-outline"></ion-icon>
+              {{provider?.provider_rating}}
+            </ion-badge>
+          </div>
+          <div *ngIf="!showDetail">
+            <!--<ion-badge class="badge-starts">S/ 80.00</ion-badge>-->
+            <ion-badge class="badge-pos-left-down">
+              {{provider?.provider_name}}
+            </ion-badge>
+          </div>
+          <app-custom-cl-image [publicId]="provider?.provider_image" (action)="openDetailSportCenter(provider)" [classImg]="'object-fill h-72 w-full'"></app-custom-cl-image>
+          <ion-card-content class="p-0 ml-2 mt-2" *ngIf="showDetail">
+            <ion-card-title>
+              <ion-row>
+                <ion-col class="p-0 text-left" size="12">
+                  <h6 class="subtitle text-left">
+                    <ion-icon name="locate"></ion-icon>
+                    Urb. Angamos centr...
+                  </h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="p-0 text-left" size="12">
+                  <h6 class="subtitle text-left">
+                    <ion-icon name="man"></ion-icon>
+                    5 vs.5
+                  </h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="p-0 text-left" size="12">
+                  <h6 class="subtitle text-left">
+                    <ion-icon name="calendar"></ion-icon>
+                    Horario: 20:30
+                  </h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="p-0 text-left" size="12">
+                  <h6 class="subtitle text-left">
+                    <ion-icon name="alarm"></ion-icon>
+                    Tiempo: 1h 30m
+                  </h6>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="p-0 text-left" size="12">
+                  <ion-button fill="outline" color="primary" expand="block" (click)="openModalReservation()">Reservar</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-card-title>
+          </ion-card-content>
+      </ion-card>
+      </ng-template>
+    </swiper>
+    <app-lead icon="file-search" title="Sin resultados" *ngIf="!providers.length">
+      Lo sentimos, no encontramos canchas con los filtros aplicados.
+    </app-lead>
+</div>
+<div class="flex justify-center" *ngIf="loading">
+  <swiper [config]="configSlides">
+    <ng-template *ngFor="let provider of [].constructor(10)" swiperSlide>
+      <ion-card class="rounded-2xl max-h-72 h-72 shadow-none">
+        <ion-skeleton-text animated class="object-fill h-72 w-full"></ion-skeleton-text>
+      </ion-card>
+    </ng-template>
+  </swiper>
+</div>

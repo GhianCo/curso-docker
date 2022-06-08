@@ -1,0 +1,70 @@
+.selectBorder {
+  border: 1px solid #ccc;
+}
+
+.dias {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.border-line {
+  background: #fff;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  margin: 8px 4px;
+  border-radius: 4px;
+  line-height: 1.1;
+
+  .nombre {
+    font-size: .8em;
+  }
+
+  .numero {
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+
+  &.activo {
+    background-color: lighten(#fd7e14, 40%);
+    border-color: #fd7e14;
+  }
+}
+
+.card {
+  border: 1px solid #ccc;
+  box-shadow: unset;
+  border-radius: 9px;
+  background-color: white !important;
+}
+
+.badge-price {
+  margin-right: 10px;
+  position: absolute;
+  top: 80%;
+  right: 0;
+  background-color: var(--ion-color-primary);
+  border-radius: 0;
+}
+
+.badge-starts {
+  margin-right: 10px;
+  position: absolute;
+  top: 5%;
+  left: 0;
+  background-color: var(--ion-color-primary);
+  border-radius: 0;
+}
+
+.badge-zoom {
+  margin-right: 10px;
+  position: absolute;
+  top: 5%;
+  right: 0;
+  background-color: var(--ion-color-primary);
+  border-radius: 0;
+}
+
+.max-width-fit {
+  max-width: fit-content !important;
+}

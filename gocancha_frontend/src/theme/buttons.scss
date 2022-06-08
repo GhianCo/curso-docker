@@ -1,0 +1,75 @@
+ion-button {
+  --box-shadow: none;
+  --border-radius: 16px;
+}
+
+ion-button,
+.sc-ion-buttons-md-s ion-button {
+  text-transform: none;
+  letter-spacing: 0.2px;
+  font-size: 12px;
+}
+
+.address-button .button-content {
+  max-width: 140px;
+}
+
+ion-button.button-circle {
+  --padding-start: 0;
+  --padding-end: 0;
+  --border-radius: #{42px/2};
+  --box-shadow: 0 1px 4px #{rgba(#C8C8C8, .5)};
+  --background: #fff;
+  --color: #000;
+
+  height: 42px;
+
+  &::part(native) {
+    width: 42px;
+  }
+}
+
+ion-button.button-block.button-solid {
+  font-weight: bold;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.alert-button {
+  &.alert-button-role-cancel {
+    color: var(--ion-color-dark);
+  }
+}
+
+.bottom-fixed {
+  position: fixed;
+  left: 0;
+  bottom: 10px;
+  right: 0;
+}
+.bottom-fixed-input {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.button-background-facebook{
+  --background: var(--ion-color-facebook);
+}
+.button-background-google{
+  --background: var(--ion-color-google);
+}
+.button-background-apple{
+  --background: var(--ion-color-apple);
+  color: black;
+}
+
+.button-background-account{
+  --background: var(--ion-color-apple);
+  color: grey;
+}

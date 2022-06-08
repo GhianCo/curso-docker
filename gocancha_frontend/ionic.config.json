@@ -1,0 +1,7 @@
+{
+  "name": "com.chapatucancha.app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

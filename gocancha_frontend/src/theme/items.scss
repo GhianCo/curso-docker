@@ -1,0 +1,15 @@
+.dgo-item-disabled {
+  opacity: .6;
+
+  .strike-when-disabled {
+    text-decoration: line-through;
+  }
+}
+
+.hidden-for-user {
+  opacity: .55;
+
+  img {
+    filter: grayscale(1);
+  }
+}

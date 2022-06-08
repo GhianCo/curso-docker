@@ -1,0 +1,25 @@
+ion-content {
+  --color: var(--ion-color-light);
+  --background: var(--ion-color-dark);
+}
+
+.signin-content {
+  &::before {
+    content: '';
+    display: block;
+    background-image: url(../../../../../assets/images/background_0.jpeg);
+    background-size: 100% 100%;
+    background-position: center;
+    @apply absolute inset-0;
+  }
+}
+
+ion-item {
+  --color: var(--ion-color-light);
+  --background: rgba(255,255,255, .2);
+  --border-radius: 4px;
+
+  &::part(native) {
+    backdrop-filter: blur(2px);
+  }
+}

@@ -1,0 +1,5 @@
+ion-img.rounded-full {
+  &::part(image) {
+    border-radius: 9999px;
+  }
+}

@@ -1,0 +1,23 @@
+ion-toolbar {
+  &.ios {
+    padding: 8px;
+  }
+
+  &.md {
+    padding-top: 0;
+  }
+}
+
+ion-toolbar.md {
+  padding-left: 16px;
+}
+
+ion-content {
+  .list-header {
+    font-weight: 700;
+    color: #515151;
+    font-size: 1.2rem;
+    // margin-bottom: 1.6rem;
+    // margin-top: 2.5rem;
+  }
+}

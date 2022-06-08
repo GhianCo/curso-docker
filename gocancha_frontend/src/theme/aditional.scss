@@ -1,0 +1,54 @@
+agm-map {
+  height: 350px;
+}
+
+.chart-efectivity {
+  ion-progress-bar {
+    --background: #ed576b;
+    --progress-background: #00ac4b;
+  }
+}
+
+.button-pull-right {
+  display: flex;
+  justify-content: space-between;
+}
+
+.height-8 {
+  height: 8px;
+}
+
+.font-size-10 {
+  font-size: 10px;
+}
+
+.font-size-9-5 {
+  font-size: 9.5px;
+}
+
+.font-size-15 {
+  font-size: 15px;
+}
+
+.font-size-13 {
+  font-size: 13px;
+}
+
+.pull-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.map-overlay {
+  background: rgba(0, 0, 0, .6);
+}
+
+.badge-pos-left-down {
+  margin-right: 10px;
+  position: absolute;
+  top: 80%;
+  left: 0;
+  background-color: var(--ion-color-primary);
+  border-radius: 0;
+  font-size: 10px;
+}

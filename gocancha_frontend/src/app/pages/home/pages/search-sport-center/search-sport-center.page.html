@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar #searchProduct placeholder="Buscar cancha deportiva..." type="text" (ionChange)="performSearch()"
+      [(ngModel)]="searchQuery" [debounce]="1000"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="{
+    allSportplatform: allSportplatform$ | async,
+    sportplatformsLoading: sportplatformsLoading$ | async
+  } as data">
+  <!-- Mostrar resultados -->
+  <div class="px-4">
+    <div class="flex justify-center p-4" *ngIf="data.sportplatformsLoading">
+      <ion-spinner name="bubbles" color="primary"></ion-spinner>
+    </div>
+    <div *ngFor="let sportplatform of data.allSportplatform" 
+          class="flex items-center space-x-4 w-full p-4 border-2 rounded-2xl my-4" 
+          (click)="openDetailSportCenter(sportplatform)">
+      <div class="h-24 w-24 flex items-center">
+        <app-custom-cl-image [publicId]="sportplatform?.provider_image"></app-custom-cl-image>
+      </div>
+      <div class="flex-grow">
+        <p class="font-normal text-base">{{sportplatform?.provider_name}}</p>
+        <p class="text-base text-dark strike-when-disabled mt-2"><span class="font-bold">Direccion: </span>
+          {{sportplatform?.provider_address}}</p>
+        <p class="text-base text-dark strike-when-disabled"><span class="font-bold">Referencia: </span>
+          {{sportplatform?.provider_ref}}</p>
+      </div>
+      <p class="font-bold text-base text-dark flex-shrink-0 strike-when-disabled">Disponibles:
+        {{sportplatform?.provider_totalPlatforms}}</p>
+      <hr>
+    </div>
+  </div>
+
+  <app-lead class="mt-4" icon="file-search" title="Sin resultados" [hidden]="data.sportplatformsLoading"
+    *ngIf="!data.allSportplatform.length && searchQuery != ''">
+    Lo sentimos, no encontramos canchitas relacionadas con "{{searchQuery}}".
+  </app-lead>
+
+</ion-content>

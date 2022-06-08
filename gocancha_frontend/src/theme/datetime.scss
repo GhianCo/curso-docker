@@ -1,0 +1,6 @@
+ion-datetime {
+  &::part(placeholder),
+  &::part(text) {
+    @apply text-base;
+  }
+}

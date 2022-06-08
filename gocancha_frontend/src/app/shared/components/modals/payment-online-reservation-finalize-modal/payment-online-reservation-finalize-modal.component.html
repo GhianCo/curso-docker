@@ -1,0 +1,53 @@
+<ion-content *ngIf="{
+  reservationToPayOnline : reservationToPayOnline$ | async,
+  profileCustomer : profileCustomer$ | async
+  } as data">
+  <div class="p-6">
+    <div class="font-bold text-xl">{{typeResponseReservation == HTTP_RESPONSE.SUCCESS ? 'Aprobada' : 'Denegada'}}</div>
+    <ion-col *ngIf="typeResponseReservation == HTTP_RESPONSE.SUCCESS">
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Número de
+          pedido: {{data.reservationToPayOnline?.reserva?.reserva_niubiz?.order?.purchaseNumber}}</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Nombre y apellido del
+          usuario: {{data.profileCustomer.customer_name}} {{data.profileCustomer.customer_lastname}}</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Fecha y hora del pedido: {{reservation?.date}}</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Importe de la
+          transacción: {{data.reservationToPayOnline?.reserva?.reserva_niubiz?.order?.amount}}</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Tipo de
+          moneda: {{data.reservationToPayOnline?.reserva?.reserva_niubiz?.order?.currency}}</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Descripción de el/los productos(s): Reserva de centro deportivo</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Tarjeta
+          Enmascarada: {{data.reservationToPayOnline?.reserva?.reserva_niubiz?.dataMap?.CARD}}</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Marca de la
+          tarjeta: {{data.reservationToPayOnline?.reserva?.reserva_niubiz?.dataMap?.BRAND}}</p></ion-text>
+      </div>
+    </ion-col>
+    <ion-col *ngIf="typeResponseReservation == HTTP_RESPONSE.ERROR">
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Número de pedido: {{reservation?.header?.ecoreTransactionDate}}</p></ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Fecha y hora del pedido: {{reservation?.date}}</p>
+        </ion-text>
+      </div>
+      <div class="mb-4">
+        <ion-text class="m-0"><p>Descripción de la denegación: {{mensaje}}</p></ion-text>
+      </div>
+    </ion-col>
+    <ion-button fill="outline" color="primary" expand="block" (click)="closeModal()">{{typeResponseReservation == HTTP_RESPONSE.SUCCESS ? 'Listo' : 'Intentar de nuevo'}}</ion-button>
+  </div>
+</ion-content>

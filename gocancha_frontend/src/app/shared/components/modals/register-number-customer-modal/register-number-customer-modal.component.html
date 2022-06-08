@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="mt-16 flex flex-col justify-center px-6 text-center" *ngIf="{
+      profileCustomer: profileCustomer$ | async,
+      updateProfileCustomerLoading: updateProfileCustomerLoading$ | async
+    } as data">
+    <app-lead-icon icon="phone" class="mx-auto"></app-lead-icon>
+
+    <div class="font-semibold text-4xl mt-6 mb-4">¿Como te contactamos?</div>
+
+    <div class="text-lg">¡Ingresa tu número de celular para mantenerte al tanto en tus reservas!</div>
+
+    <div class="mb-6">
+      <ion-item class="my-1">
+        <ion-label position="floating">Número de celular</ion-label>
+        <ion-input type="number" [(ngModel)]="phoneNumber"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button expand="block" (click)="savePhoneNumber(data.profileCustomer)" [disabled]="!phoneNumber || data.updateProfileCustomerLoading">Registrar</ion-button>
+  </div>
+</ion-content>

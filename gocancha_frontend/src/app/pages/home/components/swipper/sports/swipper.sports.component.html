@@ -1,0 +1,31 @@
+<div *ngIf="!loading">
+  <swiper [config]="optionsSlideSports" *ngIf="{
+    currentSportSelected: currentSportSelected$ | async,
+    currentCoords: currentCoords$ | async
+  } as data">
+    <ng-template *ngFor="let sport of sports" swiperSlide>
+      <ion-card class="mb-1 text-lg shadow-none" (click)="selectCurrentSport(sport, data.currentSportSelected, data.currentCoords)" *ngIf="sport.sport_image">
+        <div class="wrapper">
+          <div class="image-card p-4">
+            <app-custom-cl-image [publicId]="sport.sport_image"></app-custom-cl-image>
+          </div>
+          <p class="text-center" [ngClass]="{'bg-gray-200': data.currentSportSelected.sport_id == sport.sport_id}">{{sport.sport_name}}</p>
+        </div>
+      </ion-card>
+    </ng-template>
+  </swiper>
+</div>
+<div class="flex justify-center" *ngIf="loading">
+  <swiper [config]="optionsSlideSports">
+    <ng-template *ngFor="let provider of [].constructor(10)" swiperSlide>
+      <ion-card class="mb-1 text-lg shadow-none">
+        <div class="wrapper">
+          <div class="image-card px-4">
+            <ion-skeleton-text animated class="object-fill h-16 w-full"></ion-skeleton-text>
+          </div>
+          <ion-skeleton-text animated class="h-6"></ion-skeleton-text>
+        </div>
+      </ion-card>
+    </ng-template>
+  </swiper>
+</div>

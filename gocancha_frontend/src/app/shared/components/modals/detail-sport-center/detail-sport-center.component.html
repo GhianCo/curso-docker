@@ -1,0 +1,254 @@
+<ng-container *ngIf="{
+  dataFromProvider: dataFromProvider$ | async,
+  dataFromProviderLoading: dataFromProviderLoading$ | async,
+  hourInitialReservation: hourInitialReservation$ | async,
+  allSportplatformByFilter: allSportplatformByFilter$ | async,
+  sportplatformByFilterLoading: sportplatformByFilterLoading$ | async,
+  voucherTranferPaymentProviderLoading: voucherTranferPaymentProviderLoading$ | async,
+  voucherTranferPaymentProvider: voucherTranferPaymentProvider$ | async,
+  currentAddress: currentAddress$ | async,
+  userId: userId$ | async,
+  reservationSportplatformLoading: reservationSportplatformLoading$ | async,
+  sportplatformAvalibles: sportplatformAvalibles$ | async,
+  hourFinalReservation: hourFinalReservation$ | async,
+  profileCustomer: profileCustomer$ | async
+} as data">
+  <ion-header [translucent]="true" class="ion-no-border">
+    <ion-toolbar>
+      <div class="flex">
+        <ion-icon class="align-middle ml-4 mr-2"
+          name="heart{{!data.dataFromProvider?.provider_isFavorite ? '-outline' : ''}}" size="small"
+          (click)="changeStateFavoriteProvider(data.dataFromProvider)"></ion-icon>
+        <ion-title class="text-xl p-0 font-bold">
+          {{provider?.provider_name}} <span
+            *ngIf="provider?.sportplatform_name && provider?.sportplatform_name != ''">|</span>
+          {{provider?.sportplatform_name}}
+        </ion-title>
+      </div>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">
+          <div class="flex justify-center items-center h-12 w-12 bg-gray-700 -rigth-4 rounded-full text-white">
+            <fa-icon [icon]="['far', 'times']" size="2x"></fa-icon>
+          </div>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div class="px-6 overflow-y-auto modal-content" [hidden]="viewImages">
+      <ion-segment scrollable="true" [value]="initialTab" mode="md" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="info" layout="icon-start">
+          <ion-label>Información</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="booking" layout="icon-start" [hidden]="!displayReservation">
+          <ion-label>Reserva</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="map" layout="icon-start">
+          <ion-label>Ubicación</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <div [hidden]="initialTab != 'info'" class="mt-3">
+        <div class="flex justify-center p-4" [hidden]="!data.dataFromProviderLoading">
+          <ion-spinner name="bubbles" color="primary"></ion-spinner>
+        </div>
+        <div class="flex flex-row" [ngClass]="{'opacity-20': data.dataFromProviderLoading}">
+          <div class="basis-1/4 mr-8">
+            <div class="mb-4">
+              <ion-text class="m-0 font-bold">
+                <p>DIRECCIÓN:</p>
+              </ion-text>
+              <p class="m-0 max-width-fit">{{data.dataFromProvider?.provider_address}}</p>
+            </div>
+            <div class="mb-4">
+              <ion-text class="m-0 font-bold">
+                <p>REFERENCIA:</p>
+              </ion-text>
+              <ion-text class="m-0">
+                <p>
+                  {{data.dataFromProvider?.provider_reference ? data.dataFromProvider?.provider_reference : 'No tiene referencia'}}
+                </p>
+              </ion-text>
+            </div>
+            <div class="mb-4">
+              <ion-text class="m-0 font-bold">
+                <p>HORARIO DE ATENCIÓN:</p>
+              </ion-text>
+              <ion-text class="m-0" *ngFor="let schedule of data.dataFromProvider?.provider_schedules">
+                <p>{{schedule.dia}}: {{schedule.hora_inicio}} a {{schedule.hora_fin}}</p>
+              </ion-text>
+              <ion-text class="m-0" [hidden]="data.dataFromProvider?.provider_schedules.length">
+                <p>No hay horarios de atención disponibles</p>
+              </ion-text>
+            </div>
+            <div class="mb-4" *ngIf="data.dataFromProvider?.provider_images.length && !data.dataFromProviderLoading">
+              <ion-text class="m-0 font-bold">
+                <p>FOTOS:</p>
+              </ion-text>
+            </div>
+          </div>
+          <div class="basis-1/3 mr-8">
+            <div class="mb-4">
+              <ion-text class="m-0 font-bold">
+                <p>TAMAÑO:</p>
+              </ion-text>
+              <ion-text class="m-0" *ngFor="let size of data.dataFromProvider?.provider_sizes">
+                <p>{{size.cancha_sizetext}}</p>
+              </ion-text>
+              <ion-text class="m-0" [hidden]="data.dataFromProvider?.provider_sizes.length">
+                <p>No hay tamaños disponibles</p>
+              </ion-text>
+            </div>
+            <div class="mb-4" [hidden]="!data.dataFromProvider?.provider_features.length">
+              <ion-text class="m-0 font-bold">
+                <p>CARACTERISTICAS:</p>
+              </ion-text>
+              <ion-text class="m-0" *ngFor="let feature of data.dataFromProvider?.provider_features">
+                <p>{{feature.caracteristica_nombre}}</p>
+              </ion-text>
+            </div>
+          </div>
+          <div class="basis-1/3">
+            <div class="mb-4">
+              <ion-text class="m-0 font-bold">
+                <p>DEPORTE:</p>
+              </ion-text>
+              <ion-text class="m-0">
+                <p>
+                  {{data.dataFromProvider?.provider_sport ? data.dataFromProvider?.provider_sport : 'No hay deportes disponibles'}}</p>
+              </ion-text>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4 text-center font-bold" [hidden]="data.dataFromProviderLoading">
+          <div *ngFor="let image of data.dataFromProvider?.provider_images;"
+            (click)="showFullScreenImage(image.canchaimagen_url)">
+            <app-custom-cl-image [publicId]="image.canchaimagen_url" [classImg]="'w-full h-56 max-h-56 rounded-xl'">
+            </app-custom-cl-image>
+          </div>
+        </div>
+      </div>
+
+      <div [hidden]="initialTab != 'booking'" class="mt-3">
+        <app-banner class="ml-4 mr-4 mb-4" (click)="goToEditProfile()"
+          *ngIf="!data.profileCustomer?.customer_numberdocument || data.profileCustomer?.customer_numberdocument == '' || data.profileCustomer?.customer_email == '' || data.profileCustomer?.customer_email == '-'">
+          Para poder finalizar una reserva es necesario que actualices tu correo y tu número de documento aqui.
+        </app-banner>
+        <div class="flex flex-row items-center justify-between p-2 mx-2 mb-2">
+          <div class="flex flex-wrap content-start border-2 border-gray-200 rounded-lg p-2"
+            id="openModalDateSearchSportplatform">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <div class="font-bold text-base ml-2">{{dateReservationWithFormat}}</div>
+          </div>
+          <app-custom-date-time trigger="openModalDateSearchSportplatform" [min]="today"  [date]="filtersBooking.fecha" (dateChangedEvent)="dateChanged($event)"></app-custom-date-time>
+        </div>
+        <div class="flex flex-row items-center justify-between mx-4 mb-4">
+          <div class="border-2 border-gray-200 text-center rounded-lg"
+            [ngClass]="{'bg-gray-200': schedule.day == filtersBooking.fecha}" *ngFor="let schedule of scheduleday"
+            (click)="selectScheduleday(schedule)">
+            <div class="nombre px-2 font-bold">{{schedule.dayName}}</div>
+            <div class="numero px-2 font-bold">{{schedule.dayNumber}}</div>
+          </div>
+        </div>
+        <ion-row class="ml-4">
+          <ion-col size="5" class="border-line" (click)="selectHourInitialReservation()">
+            <div>
+              {{timeInitialSelected?.horaEntera != '-1' ? 'Desde las ' + timeInitialSelected.horaEnteraAMPM :
+              'Horario'}}
+            </div>
+          </ion-col>
+          <ion-col size="4" class="border-line" (click)="selectTimeToReservation()">
+            {{timeToReservation?.description}}
+          </ion-col>
+        </ion-row>
+        <ion-item lines="none" class="p-0 text-base" *ngIf="data.sportplatformAvalibles > 0">
+          <ion-col>
+            <div class="mb-4">
+              <ion-text class="m-0 font-bold">
+                <p>ESCOGE UNA CANCHA DEPORTIVA: <span *ngIf="sportplatformSelected"
+                    class="font-bold">{{sportplatformSelected.sportplatform_name}}</span>
+                </p>
+              </ion-text>
+              <ion-text class="m-0">
+                <p>{{data.sportplatformAvalibles}} disponibles</p>
+              </ion-text>
+            </div>
+          </ion-col>
+        </ion-item>
+        <div class="flex justify-center p-4" *ngIf="data.sportplatformByFilterLoading">
+          <ion-spinner name="bubbles" color="primary"></ion-spinner>
+        </div>
+        <ion-row class="ml-4 mr-4">
+          <ion-col *ngFor="let sportplatform of data.allSportplatformByFilter" size="6">
+            <div
+              class="flex absolute rounded-full bg-gray-500 text-white -top-1 right-0 w-10 h-10 z-10 justify-center items-center"
+              *ngIf="sportplatform.sportplatform_id == sportplatformSelected?.sportplatform_id">
+              <fa-icon slot="start" [icon]="['far', 'check']" size="2x"></fa-icon>
+            </div>
+            <ion-card class="m-0 rounded-2xl" [ngClass]="{
+                                    'opacity-75': sportplatform?.sportplatform_avalible != '1', 
+                                    'border-4 border-gray-900': sportplatform.sportplatform_id == sportplatformSelected?.sportplatform_id
+                                  }" (click)="selectSporplatformToReservation(sportplatform)"
+              *ngIf="sportplatform?.sportplatform_image && sportplatform?.sportplatform_avalible == '1'">
+              <ion-badge class="badge-price">S/ {{sportplatform.sportplatform_price}}</ion-badge>
+              <ion-badge class="badge-zoom" (click)="openImages(sportplatform.imagenList)"
+                *ngIf="sportplatform?.imagenList.length">
+                <ion-icon name="images"></ion-icon>
+              </ion-badge>
+              <ion-badge class="badge-starts">
+                <ion-icon name="man"></ion-icon>
+                {{sportplatform.sportplatform_size}}
+              </ion-badge>
+              <app-custom-cl-image [publicId]="sportplatform?.sportplatform_image"
+                [classImg]="'object-fill h-80 w-full'"></app-custom-cl-image>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <app-lead class="mt-4" icon="file-search" title="Sin resultados" *ngIf="!data.allSportplatformByFilter.length">
+          Lo sentimos, no encontramos canchas en el centro deportivo {{provider?.provider_name}}.
+        </app-lead>
+        <ion-button color="primary" expand="block" class="mr-4 ml-4"
+          (click)="openModalReservation(data.dataFromProvider)"
+          [disabled]="!data.allSportplatformByFilter.length || data.voucherTranferPaymentProviderLoading || !sportplatformSelected || !data.profileCustomer?.customer_numberdocument || data.profileCustomer?.customer_numberdocument == '' || data.profileCustomer?.customer_email == '' || data.profileCustomer?.customer_email == '-'">
+          RESERVAR
+        </ion-button>
+      </div>
+
+      <div [hidden]="initialTab != 'map'" class="mt-3">
+        <div class="map relative my-6 mb-12">
+          <agm-map #AgmMap [latitude]="data.dataFromProvider?.provider_latitude" [zoom]="zoom"
+            (mapReady)="onMapReady($event)" [longitude]="data.dataFromProvider?.provider_longitude">
+            <agm-marker [latitude]="data.dataFromProvider?.provider_latitude"
+              [longitude]="data.dataFromProvider?.provider_longitude"></agm-marker>
+          </agm-map>
+        </div>
+        <ion-button color="primary" expand="block" (click)="sharedLocation(data.dataFromProvider)">Compartir
+        </ion-button>
+      </div>
+    </div>
+    <div class="p-6 pt-8 overflow-y-auto modal-content" [hidden]="!viewImages">
+      <div class="font-bold text-xl mb-3">
+        <ion-icon class="align-middle" name="images" size="small"></ion-icon>
+        Imagenes
+      </div>
+
+      <ion-row class="">
+        <ion-col *ngFor="let sportplatformImage of sportplatformsImages;" size="6">
+          <ion-card class="card m-0">
+            <!--<ion-badge class="badge-price">S/ 80.00</ion-badge>
+            <ion-badge class="badge-starts">
+              <ion-icon name="man"></ion-icon>
+              6 vs 6
+            </ion-badge>-->
+            <app-custom-cl-image [publicId]="sportplatformImage.canchaimagen_url"></app-custom-cl-image>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-button color="primary" expand="block" fill="outline" (click)="viewImages = false">Regresar para reservar
+      </ion-button>
+    </div>
+  </ion-content>
+  </ng-container>

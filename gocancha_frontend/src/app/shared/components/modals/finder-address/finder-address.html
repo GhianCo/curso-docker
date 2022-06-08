@@ -1,0 +1,45 @@
+<ng-container *ngIf="{
+  addressesFound: addressesFound$ | async,
+  addressesFoundLoading: addressesFoundLoading$ | async
+} as data">
+  <ion-header [translucent]="true" class="ion-no-border">
+    <ion-toolbar>
+      <ion-searchbar class="p-0" #searchProduct placeholder="Busca tu dirección..." type="text" (ionChange)="performSearch()" [(ngModel)]="searchQuery" [debounce]="1000"></ion-searchbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">
+          <div class="flex justify-center items-center h-12 w-12 bg-gray-700 -rigth-4 rounded-full text-white">
+            <fa-icon [icon]="['far', 'times']" size="2x"></fa-icon>
+          </div>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div class="px-6">
+      <div class="text-center mt-0">
+        <ion-chip outline color="primary" (click)="selectCurrentsCoords()" class="my-0 py-0 text-lg">
+          <ion-icon name="locate"></ion-icon>
+          <ion-label>Usar mi ubicación actual</ion-label>
+        </ion-chip>
+      </div>
+      <div class="flex justify-center" *ngIf="data.addressesFoundLoading">
+        <ion-spinner name="bubbles" color="primary"></ion-spinner>
+      </div>
+      <ion-list class="-mx-6 pt-0">
+        <ion-item *ngFor="let address of data?.addressesFound" (click)="selectAddress(address)">
+          <div class="flex items-center space-x-4 w-full">
+            <div class="flex-grow">
+              <div class="font-normal text-base">{{address?.description}}</div>
+              <div class="font-bold text-base text-dark strike-when-disabled">{{address?.address}}</div>
+            </div>
+            <ion-icon name="locate"></ion-icon>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <app-lead class="mt-4" icon="file-search" title="Sin resultados" *ngIf="!data?.addressesFound.length && searchQuery != '' && !data?.addressesFoundLoading">
+      Lo sentimos, no encontramos direcciones relacionadas con "{{searchQuery}}".
+    </app-lead>
+  </ion-content>
+</ng-container>

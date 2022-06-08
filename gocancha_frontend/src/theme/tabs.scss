@@ -1,0 +1,19 @@
+ion-segment-button.md {
+  --padding-start: 4px;
+  --padding-end: 4px;
+  text-transform: none;
+  letter-spacing: 0.4px;
+
+  ion-badge {
+      --color: var(--ion-color-light);
+      --background: var(--ion-color-step-250);
+  }
+
+  &.segment-button-checked {
+      ion-badge {
+          --color: var(--ion-color-light);
+          --background: var(--indicator-color);
+      }
+  }
+
+}

@@ -1,0 +1,9 @@
+ion-content,
+ion-toolbar {
+  .sc-ion-searchbar-ios-h,
+  .sc-ion-searchbar-md-h {
+    --box-shadow: none;
+    --background: var(--ion-color-step-50);
+    --border-radius: 999em;
+  }
+}

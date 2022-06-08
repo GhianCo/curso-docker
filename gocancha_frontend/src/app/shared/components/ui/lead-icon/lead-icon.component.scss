@@ -1,0 +1,12 @@
+:host {
+  $size: 8em;
+
+  color: var(--ion-color-apple);
+  display: flex;
+  background: var(--ion-color-primary);
+  width: $size;
+  height: $size;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999em;
+}

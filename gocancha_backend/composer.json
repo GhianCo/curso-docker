@@ -1,0 +1,23 @@
+{
+    "name": "ghianco/goncha",
+    "description": "App GoCancha PHP",
+    "keywords": ["gocancha", "api", "peru", "php"],
+    "homepage": "https://www.ghianco.com",
+    "type": "app",
+    "license": "MIT",
+    "require": {
+        "phpmailer/phpmailer": "^5.2",
+        "gumlet/php-image-resize": "1.6.*",
+        "phpoffice/phpspreadsheet": "^1.0",
+        "slim/slim": "^3.9",
+        "box/spout": "^2.7",
+        "sentry/sdk": "2.1.0",
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "": ["api/controllers","api/entities","api/models","api/utils","api/Slim","api/core/libs/JWT","api/core"]
+        }
+        
+    }
+}

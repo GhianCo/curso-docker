@@ -1,0 +1,39 @@
+version: "3.1"
+services:
+    database:
+        image: mysql:8
+        ports: 
+            - "3307:3306"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: gocancha
+            MYSQL_USER: gocanchauser
+            MYSQL_PASSWORD: gocanchapass
+            MYSQL_ROOT_PASSWORD: gocanchapass 
+        volumes:
+            - ./scripts:/docker-entrypoint-initdb.d
+            - ./conf:/etc/mysql/conf.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+
+    php:
+        build: .
+        ports: 
+            - "8080:80"
+        volumes:
+            - ./:/var/www/html
+        links:
+            - database
+        depends_on:
+            - database
+        networks:
+            - default
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8000:8080
+volumes:
+    persistent:

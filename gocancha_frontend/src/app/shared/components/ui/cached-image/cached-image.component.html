@@ -1,0 +1,6 @@
+<img class="{{_class}}" [src]="_src" *ngIf="_src != ''; else loading" width="{{width}}" height="{{height}}">
+<ng-template #loading>
+  <div class="ion-text-center" *ngIf="spinner">
+    <ion-spinner name="dots" color="primary"></ion-spinner>
+  </div>
+</ng-template>

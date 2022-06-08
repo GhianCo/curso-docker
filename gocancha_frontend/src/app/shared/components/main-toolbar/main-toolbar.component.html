@@ -1,0 +1,18 @@
+<ion-toolbar>
+  <ion-buttons slot="primary">
+    <ng-container>
+      <ion-button *ngIf="showGoToFindersAddress" (click)="goToFindersAddress()">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="showSignOut" (click)="logOut()" size="large" color="danger" fill="outline" shape="round">
+        <ion-icon name="log-out"></ion-icon> Salir
+      </ion-button>
+    </ng-container>
+  </ion-buttons>
+  <ion-title (click)="goToFindersAddress()" *ngIf="{
+    currentAddress: currentAddress$ | async
+  } as data">
+    <ion-icon class="align-middle" name="locate"></ion-icon>
+    {{title ? title : data.currentAddress}}
+  </ion-title>
+</ion-toolbar>

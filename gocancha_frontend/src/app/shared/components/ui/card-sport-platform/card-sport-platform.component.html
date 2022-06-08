@@ -1,0 +1,72 @@
+<div *ngIf="!loading">
+  <ion-card class="card m-0" [ngClass]="{'opacity-75': !provider?.sportplatform_isActive}" *ngIf="{
+      profileCustomer: profileCustomer$ | async,
+      allSportplatformFiltersApply: allSportplatformFiltersApply$ | async
+    } as data">
+    <ion-badge class="badge-price">S/ {{provider.sportplatform_price}}</ion-badge>
+    <ion-badge class="badge-starts" *ngIf="provider?.provider_rating">
+      <ion-icon name="star-outline"></ion-icon>
+      {{provider?.provider_rating}}
+    </ion-badge>
+    <app-custom-cl-image [publicId]="provider?.sportplatform_image" [classImg]="'object-fill h-64 w-full'"
+      (action)="openDetailSportCenter(provider)"></app-custom-cl-image>
+    <ion-card-content class="p-0 ml-2 mt-2" *ngIf="showDetail">
+      <ion-card-title>
+        <ion-row>
+          <ion-col class="p-0 text-left" size="12">
+            <h6 class="subtitle text-left">
+              <ion-icon name="football"></ion-icon>
+              {{provider?.provider_name}}
+            </h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="p-0 text-left" size="12">
+            <h6 class="subtitle text-left">
+              <ion-icon name="expand"></ion-icon>
+              {{provider?.sportplatform_name}}
+            </h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="p-0 text-left" size="12">
+            <h6 class="subtitle text-left whitespace-nowrap">
+              <ion-icon name="locate"></ion-icon>
+              {{provider?.provider_address}}
+            </h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="p-0 text-left" size="12">
+            <h6 class="subtitle text-left">
+              <ion-icon name="man"></ion-icon>
+              {{provider?.sportplatform_size}}
+            </h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="p-0 text-left" size="12">
+            <ion-button fill="outline" color="{{provider?.sportplatform_avalible == 1 ? 'primary' : 'danger'}}"
+              expand="block"
+              [disabled]="!data.profileCustomer?.customer_numberdocument || data.profileCustomer?.customer_numberdocument == '' || data.profileCustomer?.customer_email == '' || data.profileCustomer?.customer_email == '-' || provider?.sportplatform_avalible != 1"
+              (click)="openModalReservation()">
+              {{provider?.sportplatform_avalible == 1 ? 'Reservar' : 'Reservada'}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card>
+</div>
+<div *ngIf="loading">
+  <ion-card class="card m-0">
+    <ion-skeleton-text animated class="object-fill m-0 h-64 w-full"></ion-skeleton-text>
+    <ion-card-content class="p-0 mx-2 mt-2" *ngIf="showDetail">
+      <ion-skeleton-text animated class="w-28 h-4"></ion-skeleton-text>
+      <ion-skeleton-text animated class="w-36 h-4"></ion-skeleton-text>
+      <ion-skeleton-text animated class="w-56 h-4"></ion-skeleton-text>
+      <ion-skeleton-text animated class="w-24 h-4"></ion-skeleton-text>
+      <ion-skeleton-text animated class="w-60 h-14 rounded-full mx-4"></ion-skeleton-text>
+    </ion-card-content>
+  </ion-card>
+</div>
