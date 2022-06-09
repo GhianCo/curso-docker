@@ -1,6 +1,7 @@
 FROM node:14 as node
 WORKDIR /
 COPY ./ /
+RUN npm i -g @angular/cli:13.2.0
 RUN npm install -g ionic
 RUN npm install
 ARG npmrun=build
