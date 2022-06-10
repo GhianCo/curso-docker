@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  REMOTE_API_URI: 'http://10.45.1.171/sistema/api/rest/',
-  REMOTE_PUBLIC_URI: 'http://10.45.1.171/sistema/public/rest/',
+  REMOTE_API_URI: 'http://10.45.1.171/api/rest/',
+  REMOTE_PUBLIC_URI: 'http://10.45.1.171/public/rest/',
   CDN_CLOUDINARY: 'https://api.cloudinary.com/v1_1/gocancha/image/upload',
   CDN_CLOUD_NAME_CLOUDINARY: 'gocancha',
   API_KEY_GOOGLE_MAPS: 'AIzaSyA7oWiXT3LC-qlx3myEP-dH1R18Ez7BDNY',
