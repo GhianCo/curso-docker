@@ -432,7 +432,7 @@ class Cancha extends CanchaEntity {
 
 
 
-        $sql = "select d.*
+        /*$sql = "select d.*
                 from deporte d 
                 inner join cancha c on d.deporte_id = c.deporte_id
                 where proveedor_id = $proveedor_id and cancha_estado = ".ACTIVO." group by c.deporte_id";
@@ -443,7 +443,7 @@ class Cancha extends CanchaEntity {
         $stmt->setFetchMode(PDO::FETCH_CLASS, "Deporte");
         while ($obj = $stmt->fetch()) {
             $_vector[] = $obj;
-        }
+        }*/
         return $_vector;
     }
 
