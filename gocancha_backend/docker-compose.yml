@@ -21,7 +21,7 @@ services:
     php:
         build: .
         ports: 
-            - "8080:80"
+            - "8081:80"
         volumes:
             - ./:/var/www/html
         links:
