@@ -263,7 +263,7 @@ CREATE TABLE `cliente` (
   `cliente_aid` varchar(100) DEFAULT NULL,
   `cliente_estado` char(1) DEFAULT '1',
   `cliente_urlfoto` varchar(150) DEFAULT NULL,
-  `cliente_correo` varchar(25) DEFAULT NULL,
+  `cliente_correo` varchar(120) DEFAULT NULL,
   `cliente_tipocomprobante` char(1) DEFAULT NULL,
   `cliente_numerodoc` varchar(20) DEFAULT NULL,
   `cliente_razonsocial` varchar(45) DEFAULT NULL,
